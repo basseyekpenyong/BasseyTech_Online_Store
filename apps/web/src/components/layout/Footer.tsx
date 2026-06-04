@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t bg-muted/40 mt-auto">
       <div className="container py-8 grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
         <div>
-          <img src="/logo.png" alt="Chiba-Tech" className="h-8 w-auto mb-2" />
+          <img src="/logo.png" alt="Chiba-Tech" className="h-10 w-auto mb-2" />
           <p className="text-muted-foreground mb-3">Your one-stop tech store for gadgets, repairs, and digital services worldwide.</p>
           <ul className="space-y-2 text-muted-foreground">
             <li className="flex items-start gap-2">

@@ -34,7 +34,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/">
-          <img src="/logo.png" alt="Chiba-Tech" className="h-10 w-auto" />
+          <img src="/logo.png" alt="Chiba-Tech" className="h-12 w-auto" />
         </Link>
 
         {/* Desktop nav */}
