@@ -36,7 +36,7 @@ export default function HomePage() {
             <Button size="lg" variant="secondary" asChild>
               <Link to="/products">Shop Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10" asChild>
+            <Button size="lg" variant="outline" className="text-white border-white bg-transparent hover:bg-white/10 hover:text-white" asChild>
               <Link to="/services">Our Services</Link>
             </Button>
           </div>

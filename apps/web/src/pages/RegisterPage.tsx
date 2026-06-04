@@ -50,33 +50,33 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
-                <Label>First Name</Label>
-                <Input {...register("first_name")} />
+                <Label htmlFor="first_name">First Name</Label>
+                <Input id="first_name" {...register("first_name")} />
                 {errors.first_name && <p className="text-xs text-destructive">{errors.first_name.message}</p>}
               </div>
               <div className="space-y-1">
-                <Label>Last Name</Label>
-                <Input {...register("last_name")} />
+                <Label htmlFor="last_name">Last Name</Label>
+                <Input id="last_name" {...register("last_name")} />
                 {errors.last_name && <p className="text-xs text-destructive">{errors.last_name.message}</p>}
               </div>
             </div>
             <div className="space-y-1">
-              <Label>Email</Label>
-              <Input type="email" {...register("email")} />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" {...register("email")} />
               {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
             </div>
             <div className="space-y-1">
-              <Label>Phone (optional)</Label>
-              <Input type="tel" {...register("phone")} />
+              <Label htmlFor="phone">Phone (optional)</Label>
+              <Input id="phone" type="tel" {...register("phone")} />
             </div>
             <div className="space-y-1">
-              <Label>Password</Label>
-              <Input type="password" {...register("password")} />
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" {...register("password")} />
               {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
             </div>
             <div className="space-y-1">
-              <Label>Confirm Password</Label>
-              <Input type="password" {...register("confirm")} />
+              <Label htmlFor="confirm">Confirm Password</Label>
+              <Input id="confirm" type="password" {...register("confirm")} />
               {errors.confirm && <p className="text-xs text-destructive">{errors.confirm.message}</p>}
             </div>
             <Button type="submit" className="w-full" disabled={isSubmitting}>
