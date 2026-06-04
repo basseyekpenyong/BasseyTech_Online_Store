@@ -33,9 +33,8 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-          <img src="/logo.svg" alt="Chiba-Tech logo" className="h-9 w-9" />
-          <span>Chiba<span className="text-cyan-500">-Tech</span></span>
+        <Link to="/">
+          <img src="/logo.png" alt="Chiba-Tech" className="h-10 w-auto" />
         </Link>
 
         {/* Desktop nav */}
