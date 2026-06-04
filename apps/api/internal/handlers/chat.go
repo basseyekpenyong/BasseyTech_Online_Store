@@ -41,17 +41,15 @@ HOW TO HELP:
 Keep responses concise and friendly. If you cannot fully resolve something, direct the customer to call or email us. Do not invent prices, availability, or product specs you are not certain about.`
 
 type ChatHandler struct {
-	client anthropic.Client
+	client *anthropic.Client
 }
 
 func NewChatHandler(apiKey string) *ChatHandler {
-	var client anthropic.Client
-	if apiKey != "" {
-		client = anthropic.NewClient(option.WithAPIKey(apiKey))
-	} else {
-		client = anthropic.NewClient()
+	if apiKey == "" {
+		return &ChatHandler{client: nil}
 	}
-	return &ChatHandler{client: client}
+	c := anthropic.NewClient(option.WithAPIKey(apiKey))
+	return &ChatHandler{client: &c}
 }
 
 type chatMessage struct {
@@ -65,6 +63,13 @@ type chatRequest struct {
 }
 
 func (h *ChatHandler) Chat(w http.ResponseWriter, r *http.Request) {
+	if h.client == nil {
+		models.WriteJSON(w, http.StatusOK, map[string]string{
+			"reply": "Our AI assistant is not available right now. Please reach us directly:\n\n📞 +234 806 360 7290\n📧 globalchibatech@gmail.com\n\nWe're happy to help!",
+		})
+		return
+	}
+
 	var req chatRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil || req.Message == "" {
 		models.WriteError(w, http.StatusBadRequest, "message required")
