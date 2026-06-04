@@ -1,54 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 68" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2563EB"/>
-      <stop offset="100%" stop-color="#06B6D4"/>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#2979FF"/>
+      <stop offset="100%" stop-color="#0A2472"/>
     </linearGradient>
-    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#e0f2fe"/>
+    <linearGradient id="wordGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#0A2472"/>
+      <stop offset="100%" stop-color="#1565C0"/>
     </linearGradient>
+    <filter id="shieldShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0A247240"/>
+    </filter>
   </defs>
 
-  <!-- Hexagon background -->
-  <polygon
-    points="100,12 178,56 178,144 100,188 22,144 22,56"
-    fill="url(#grad)"
-  />
+  <!-- Shield body -->
+  <path d="M6 9 L34 2 L62 9 L62 40 Q62 60 34 67 Q6 60 6 40 Z"
+        fill="url(#shieldGrad)" filter="url(#shieldShadow)"/>
 
-  <!-- Inner hexagon ring -->
-  <polygon
-    points="100,22 168,62 168,138 100,178 32,138 32,62"
-    fill="none"
-    stroke="rgba(255,255,255,0.2)"
-    stroke-width="2"
-  />
+  <!-- Shield inner gloss highlight -->
+  <path d="M10 12 L34 7 L58 12 L58 28 Q46 23 34 22 Q22 23 10 28 Z"
+        fill="white" fill-opacity="0.13"/>
 
-  <!-- Circuit board dots (corner connectors) -->
-  <circle cx="100" cy="12"  r="4" fill="white" opacity="0.7"/>
-  <circle cx="178" cy="56"  r="4" fill="white" opacity="0.7"/>
-  <circle cx="178" cy="144" r="4" fill="white" opacity="0.7"/>
-  <circle cx="100" cy="188" r="4" fill="white" opacity="0.7"/>
-  <circle cx="22"  cy="144" r="4" fill="white" opacity="0.7"/>
-  <circle cx="22"  cy="56"  r="4" fill="white" opacity="0.7"/>
+  <!-- Lock shackle -->
+  <path d="M27 37 L27 29 Q27 21 34 21 Q41 21 41 29 L41 37"
+        stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.95"/>
 
-  <!-- Small circuit lines on edges -->
-  <line x1="100" y1="12"  x2="100" y2="30"  stroke="white" stroke-width="1.5" opacity="0.4"/>
-  <line x1="178" y1="100" x2="160" y2="100" stroke="white" stroke-width="1.5" opacity="0.4"/>
-  <line x1="22"  y1="100" x2="40"  y2="100" stroke="white" stroke-width="1.5" opacity="0.4"/>
-  <line x1="100" y1="188" x2="100" y2="170" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <!-- Lock body -->
+  <rect x="23" y="37" width="22" height="16" rx="3" fill="white" fill-opacity="0.95"/>
 
-  <!-- "CT" lettering -->
-  <text
-    x="100" y="118"
-    text-anchor="middle"
-    font-family="'Segoe UI', Arial, sans-serif"
-    font-size="68"
-    font-weight="800"
-    fill="url(#textGrad)"
-    letter-spacing="-4"
-  >CT</text>
+  <!-- Keyhole circle -->
+  <circle cx="34" cy="44.5" r="3" fill="#1565C0"/>
+  <!-- Keyhole pin -->
+  <rect x="32.7" y="44.5" width="2.6" height="4" rx="1.1" fill="#1565C0"/>
 
-  <!-- Subtle underline accent -->
-  <rect x="64" y="124" width="72" height="3" rx="1.5" fill="white" opacity="0.35"/>
+  <!-- Circuit accent dots (top right of shield) -->
+  <circle cx="52" cy="9"  r="1.6" fill="#64B5F6" fill-opacity="0.7"/>
+  <circle cx="57" cy="6"  r="1.2" fill="#90CAF9" fill-opacity="0.5"/>
+  <circle cx="57" cy="12" r="1.2" fill="#90CAF9" fill-opacity="0.5"/>
+
+  <!-- Vertical separator -->
+  <line x1="77" y1="11" x2="77" y2="57" stroke="#CFD8DC" stroke-width="1"/>
+
+  <!-- CHIBA wordmark -->
+  <text x="89" y="40"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="28"
+        fill="url(#wordGrad)"
+        letter-spacing="2">CHIBA</text>
+
+  <!-- —TECH sub-wordmark -->
+  <text x="91" y="57"
+        font-family="Arial, Helvetica, sans-serif"
+        font-weight="400"
+        font-size="13"
+        fill="#1976D2"
+        letter-spacing="8">— TECH</text>
+
+  <!-- Tagline -->
+  <text x="91" y="66"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="5.8"
+        fill="#90A4AE"
+        font-weight="500"
+        letter-spacing="2.5">SECURE · TECHNOLOGY · SOLUTIONS</text>
+
+  <!-- Circuit trace (bottom right accent) -->
+  <line x1="268" y1="56" x2="288" y2="56" stroke="#90CAF9" stroke-width="1" stroke-opacity="0.55"/>
+  <circle cx="291" cy="56" r="1.5" fill="#42A5F5" fill-opacity="0.55"/>
+  <line x1="295" y1="56" x2="310" y2="56" stroke="#90CAF9" stroke-width="1" stroke-opacity="0.35"/>
+  <circle cx="313" cy="56" r="1"   fill="#42A5F5" fill-opacity="0.35"/>
 </svg>
