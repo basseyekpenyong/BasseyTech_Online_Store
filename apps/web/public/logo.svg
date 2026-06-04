@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Hexagon background -->
+  <polygon
+    points="100,12 178,56 178,144 100,188 22,144 22,56"
+    fill="url(#grad)"
+  />
+
+  <!-- Inner hexagon ring -->
+  <polygon
+    points="100,22 168,62 168,138 100,178 32,138 32,62"
+    fill="none"
+    stroke="rgba(255,255,255,0.2)"
+    stroke-width="2"
+  />
+
+  <!-- Circuit board dots (corner connectors) -->
+  <circle cx="100" cy="12"  r="4" fill="white" opacity="0.7"/>
+  <circle cx="178" cy="56"  r="4" fill="white" opacity="0.7"/>
+  <circle cx="178" cy="144" r="4" fill="white" opacity="0.7"/>
+  <circle cx="100" cy="188" r="4" fill="white" opacity="0.7"/>
+  <circle cx="22"  cy="144" r="4" fill="white" opacity="0.7"/>
+  <circle cx="22"  cy="56"  r="4" fill="white" opacity="0.7"/>
+
+  <!-- Small circuit lines on edges -->
+  <line x1="100" y1="12"  x2="100" y2="30"  stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="178" y1="100" x2="160" y2="100" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="22"  y1="100" x2="40"  y2="100" stroke="white" stroke-width="1.5" opacity="0.4"/>
+  <line x1="100" y1="188" x2="100" y2="170" stroke="white" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- "CT" lettering -->
+  <text
+    x="100" y="118"
+    text-anchor="middle"
+    font-family="'Segoe UI', Arial, sans-serif"
+    font-size="68"
+    font-weight="800"
+    fill="url(#textGrad)"
+    letter-spacing="-4"
+  >CT</text>
+
+  <!-- Subtle underline accent -->
+  <rect x="64" y="124" width="72" height="3" rx="1.5" fill="white" opacity="0.35"/>
+</svg>
