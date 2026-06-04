@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductCard } from "@/components/products/ProductCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "@/components/ui/error-state";
 import api from "@/lib/api";
 import type { PaginatedResponse, Product, Category } from "@/types";
 
@@ -14,7 +15,7 @@ export default function ProductsPage() {
   const [search, setSearch] = useState(params.get("search") ?? "");
   const category = params.get("category") ?? "";
 
-  const { data, isLoading } = useQuery<PaginatedResponse<Product>>({
+  const { data, isLoading, isError, refetch } = useQuery<PaginatedResponse<Product>>({
     queryKey: ["products", category, search],
     queryFn: () =>
       api.get(`/products?category=${category}&search=${search}&limit=24`).then((r) => r.data),
@@ -63,7 +64,9 @@ export default function ProductsPage() {
       </div>
 
       {/* Grid */}
-      {isLoading ? (
+      {isError ? (
+        <ErrorState message="Failed to load products." onRetry={refetch} />
+      ) : isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="space-y-2">
@@ -73,7 +76,7 @@ export default function ProductsPage() {
             </div>
           ))}
         </div>
-      ) : data?.data.length === 0 ? (
+      ) : !isError && data?.data.length === 0 ? (
         <div className="text-center py-20 text-muted-foreground">No products found.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

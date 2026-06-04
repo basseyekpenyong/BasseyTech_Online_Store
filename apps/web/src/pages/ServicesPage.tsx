@@ -4,12 +4,13 @@ import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "@/components/ui/error-state";
 import { formatPrice } from "@/lib/utils";
 import api from "@/lib/api";
 import type { Service } from "@/types";
 
 export default function ServicesPage() {
-  const { data: services, isLoading } = useQuery<Service[]>({
+  const { data: services, isLoading, isError, refetch } = useQuery<Service[]>({
     queryKey: ["services"],
     queryFn: () => api.get("/services").then((r) => r.data),
   });
@@ -23,13 +24,16 @@ export default function ServicesPage() {
         </p>
       </div>
 
-      {isLoading ? (
+      {isError ? (
+        <ErrorState message="Failed to load services." onRetry={refetch} />
+      ) : isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-48 rounded-xl" />)}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services?.map((svc) => (
+
             <Card key={svc.id} className="flex flex-col">
               <CardHeader>
                 <CardTitle>{svc.name}</CardTitle>

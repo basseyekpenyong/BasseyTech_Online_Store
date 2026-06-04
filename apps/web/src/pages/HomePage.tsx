@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Wrench, Code, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "@/components/ui/error-state";
 import { ProductCard } from "@/components/products/ProductCard";
 import api from "@/lib/api";
 import type { PaginatedResponse, Product, Category } from "@/types";
 
 export default function HomePage() {
-  const { data: products } = useQuery<PaginatedResponse<Product>>({
+  const { data: products, isLoading: productsLoading, isError: productsError, refetch: refetchProducts } = useQuery<PaginatedResponse<Product>>({
     queryKey: ["products", "featured"],
     queryFn: () => api.get("/products?limit=8").then((r) => r.data),
   });
-  const { data: categories } = useQuery<Category[]>({
+  const { data: categories, isLoading: categoriesLoading } = useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: () => api.get("/categories").then((r) => r.data),
   });
@@ -42,22 +44,29 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      {topCategories.length > 0 && (
+      {(categoriesLoading || topCategories.length > 0) && (
         <section className="container">
           <h2 className="text-2xl font-bold mb-6">Shop by Category</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {topCategories.map((cat) => (
-              <Link
-                key={cat.id}
-                to={`/products?category=${cat.slug}`}
-                className="flex flex-col items-center p-4 rounded-lg border hover:border-primary hover:shadow-sm transition-all text-center gap-2"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">
-                  {cat.image_url ? <img src={cat.image_url} alt={cat.name} className="w-8 h-8 object-contain" /> : "📦"}
-                </div>
-                <span className="text-sm font-medium">{cat.name}</span>
-              </Link>
-            ))}
+            {categoriesLoading
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="flex flex-col items-center p-4 gap-2">
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <Skeleton className="h-3 w-16" />
+                  </div>
+                ))
+              : topCategories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    to={`/products?category=${cat.slug}`}
+                    className="flex flex-col items-center p-4 rounded-lg border hover:border-primary hover:shadow-sm transition-all text-center gap-2"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">
+                      {cat.image_url ? <img src={cat.image_url} alt={cat.name} loading="lazy" className="w-8 h-8 object-contain" /> : "📦"}
+                    </div>
+                    <span className="text-sm font-medium">{cat.name}</span>
+                  </Link>
+                ))}
           </div>
         </section>
       )}
@@ -68,9 +77,21 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold">Featured Products</h2>
           <Button variant="ghost" asChild><Link to="/products">View all <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {products?.data.map((p) => <ProductCard key={p.id} product={p} />)}
-        </div>
+        {productsError ? (
+          <ErrorState message="Failed to load products." onRetry={refetchProducts} />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {productsLoading
+              ? Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <Skeleton className="aspect-square w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                ))
+              : products?.data.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+        )}
       </section>
 
       {/* Services strip */}

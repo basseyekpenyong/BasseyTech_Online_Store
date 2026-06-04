@@ -103,12 +103,26 @@ export function Header() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <div className="md:hidden border-t bg-background px-4 py-3 flex flex-col gap-3">
+        <div className="md:hidden border-t bg-background px-4 py-3 flex flex-col gap-1">
           {navLinks.map((l) => (
-            <Link key={l.to} to={l.to} className="text-sm font-medium" onClick={() => setMobileOpen(false)}>
+            <Link key={l.to} to={l.to} className="text-sm font-medium py-2" onClick={() => setMobileOpen(false)}>
               {l.label}
             </Link>
           ))}
+          {user && (
+            <>
+              <div className="border-t my-1" />
+              <Link to="/orders" className="text-sm font-medium py-2" onClick={() => setMobileOpen(false)}>My Orders</Link>
+              <Link to="/appointments" className="text-sm font-medium py-2" onClick={() => setMobileOpen(false)}>My Appointments</Link>
+              <Link to="/profile" className="text-sm font-medium py-2" onClick={() => setMobileOpen(false)}>Profile</Link>
+              {isAdmin() && (
+                <Link to="/admin" className="text-sm font-medium py-2" onClick={() => setMobileOpen(false)}>Admin Dashboard</Link>
+              )}
+              <button className="text-sm font-medium py-2 text-destructive text-left" onClick={() => { handleLogout(); setMobileOpen(false); }}>
+                Log out
+              </button>
+            </>
+          )}
         </div>
       )}
     </header>

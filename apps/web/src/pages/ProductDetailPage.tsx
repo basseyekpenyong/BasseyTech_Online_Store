@@ -52,7 +52,7 @@ export default function ProductDetailPage() {
         <div className="space-y-3">
           <div className="aspect-square bg-muted rounded-lg overflow-hidden">
             {primaryImg
-              ? <img src={primaryImg.url} alt={product.name} className="w-full h-full object-cover" />
+              ? <img src={primaryImg.url} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
               : <div className="w-full h-full flex items-center justify-center text-6xl">📦</div>}
           </div>
           {product.images.length > 1 && (
@@ -60,7 +60,7 @@ export default function ProductDetailPage() {
               {product.images.map((img, idx) => (
                 <button key={img.id} onClick={() => setSelectedImg(idx)}
                   className={`w-16 h-16 flex-shrink-0 rounded border-2 overflow-hidden ${idx === selectedImg ? "border-primary" : "border-transparent"}`}>
-                  <img src={img.url} alt="" className="w-full h-full object-cover" />
+                  <img src={img.url} alt="" loading="lazy" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

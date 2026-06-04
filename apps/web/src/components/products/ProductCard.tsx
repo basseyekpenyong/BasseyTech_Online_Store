@@ -37,7 +37,7 @@ export function ProductCard({ product }: Props) {
     <Card className="overflow-hidden flex flex-col hover:shadow-md transition-shadow">
       <Link to={`/products/${product.slug}`} className="block aspect-square bg-muted overflow-hidden">
         {primaryImage ? (
-          <img src={primaryImage.url} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+          <img src={primaryImage.url} alt={product.name} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl">📦</div>
         )}

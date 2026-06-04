@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "@/components/ui/error-state";
 import { formatDate } from "@/lib/utils";
 import api from "@/lib/api";
 import type { Appointment, Service } from "@/types";
@@ -35,7 +36,7 @@ export default function AppointmentsPage() {
   const [sp] = useSearchParams();
   const defaultService = sp.get("service") ?? "";
 
-  const { data: appointments, isLoading } = useQuery<Appointment[]>({
+  const { data: appointments, isLoading, isError, refetch } = useQuery<Appointment[]>({
     queryKey: ["appointments"],
     queryFn: () => api.get("/appointments").then((r) => r.data),
   });
@@ -108,7 +109,9 @@ export default function AppointmentsPage() {
       {/* My appointments */}
       <div>
         <h2 className="text-xl font-bold mb-4">My Appointments</h2>
-        {isLoading ? (
+        {isError ? (
+          <ErrorState message="Failed to load appointments." onRetry={refetch} />
+        ) : isLoading ? (
           <div className="space-y-3">{Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-20 rounded-lg" />)}</div>
         ) : appointments?.length === 0 ? (
           <p className="text-muted-foreground">No appointments yet.</p>

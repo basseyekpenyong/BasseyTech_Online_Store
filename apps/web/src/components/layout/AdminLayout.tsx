@@ -14,9 +14,9 @@ const links = [
 export function AdminLayout() {
   const { pathname } = useLocation();
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="hidden md:flex w-56 flex-col border-r bg-muted/30 p-4 gap-1">
+    <div className="flex min-h-screen flex-col md:flex-row">
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-56 flex-col border-r bg-muted/30 p-4 gap-1 flex-shrink-0">
         <p className="font-bold text-sm px-2 py-3 text-muted-foreground uppercase tracking-wider">Admin</p>
         {links.map(({ to, label, icon: Icon, exact }) => {
           const active = exact ? pathname === to : pathname.startsWith(to);
@@ -37,8 +37,28 @@ export function AdminLayout() {
         })}
       </aside>
 
+      {/* Mobile top nav */}
+      <nav className="md:hidden flex overflow-x-auto border-b bg-muted/30 px-2 gap-1 flex-shrink-0">
+        {links.map(({ to, label, icon: Icon, exact }) => {
+          const active = exact ? pathname === to : pathname.startsWith(to);
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={cn(
+                "flex flex-col items-center gap-1 px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors flex-shrink-0 border-b-2",
+                active ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Icon className="h-4 w-4" />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+
       {/* Content */}
-      <main className="flex-1 p-6 overflow-auto">
+      <main className="flex-1 p-4 md:p-6 overflow-auto min-w-0">
         <Outlet />
       </main>
     </div>

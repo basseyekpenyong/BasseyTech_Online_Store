@@ -24,6 +24,8 @@ const AdminServices = lazy(() => import("@/pages/admin/AdminServices"));
 const AdminUsers = lazy(() => import("@/pages/admin/AdminUsers"));
 const ProductDetailPage = lazy(() => import("@/pages/ProductDetailPage"));
 const CheckoutPage = lazy(() => import("@/pages/CheckoutPage"));
+const OrderDetailPage = lazy(() => import("@/pages/OrderDetailPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 
 const qc = new QueryClient({
@@ -50,8 +52,10 @@ function Layout() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/orders/:id" element={<OrderDetailPage />} />
               <Route path="/appointments" element={<AppointmentsPage />} />
               <Route path="/appointments/new" element={<AppointmentsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

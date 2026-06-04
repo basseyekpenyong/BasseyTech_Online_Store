@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
+import { ErrorState } from "@/components/ui/error-state";
 import { formatPrice } from "@/lib/utils";
 import api from "@/lib/api";
 import type { CartItem } from "@/types";
@@ -14,7 +15,7 @@ export default function CartPage() {
   const qc = useQueryClient();
   const setItems = useCartStore((s) => s.setItems);
 
-  const { data: items, isLoading } = useQuery<CartItem[]>({
+  const { data: items, isLoading, isError, refetch } = useQuery<CartItem[]>({
     queryKey: ["cart"],
     queryFn: () => api.get("/cart").then((r) => { setItems(r.data); return r.data; }),
   });
@@ -41,6 +42,12 @@ export default function CartPage() {
     </div>
   );
 
+  if (isError) return (
+    <div className="container py-8 max-w-2xl">
+      <ErrorState message="Failed to load cart." onRetry={refetch} />
+    </div>
+  );
+
   if (!items || items.length === 0) return (
     <div className="container py-20 text-center space-y-4">
       <ShoppingBag className="mx-auto h-16 w-16 text-muted-foreground" />
@@ -59,7 +66,7 @@ export default function CartPage() {
             <div key={item.id} className="flex gap-4 p-4 border rounded-lg">
               <div className="w-20 h-20 flex-shrink-0 bg-muted rounded overflow-hidden">
                 {item.image_url
-                  ? <img src={item.image_url} alt={item.product_name} className="w-full h-full object-cover" />
+                  ? <img src={item.image_url} alt={item.product_name} loading="lazy" className="w-full h-full object-cover" />
                   : <div className="w-full h-full flex items-center justify-center text-2xl">📦</div>}
               </div>
               <div className="flex-1 min-w-0">

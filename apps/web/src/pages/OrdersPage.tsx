@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "@/components/ui/error-state";
 import { formatPrice, formatDate } from "@/lib/utils";
 import api from "@/lib/api";
 import type { Order } from "@/types";
@@ -18,7 +19,7 @@ const statusVariant: Record<string, "default" | "secondary" | "destructive" | "o
 };
 
 export default function OrdersPage() {
-  const { data: orders, isLoading } = useQuery<Order[]>({
+  const { data: orders, isLoading, isError, refetch } = useQuery<Order[]>({
     queryKey: ["orders"],
     queryFn: () => api.get("/orders").then((r) => r.data),
   });
@@ -26,6 +27,12 @@ export default function OrdersPage() {
   if (isLoading) return (
     <div className="container py-8 max-w-2xl space-y-4">
       {Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-24" />)}
+    </div>
+  );
+
+  if (isError) return (
+    <div className="container py-8 max-w-2xl">
+      <ErrorState message="Failed to load orders." onRetry={refetch} />
     </div>
   );
 
