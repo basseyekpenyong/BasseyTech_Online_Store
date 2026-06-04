@@ -52,6 +52,7 @@ func main() {
 	appointmentH := handlers.NewAppointmentHandler(pool)
 	adminH := handlers.NewAdminHandler(pool)
 	addressH := handlers.NewAddressHandler(pool)
+	chatH := handlers.NewChatHandler(cfg.AnthropicAPIKey)
 
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
@@ -83,6 +84,9 @@ func main() {
 		r.Get("/products", productH.List)
 		r.Get("/products/{slug}", productH.Get)
 		r.Get("/services", serviceH.List)
+
+		// AI chat -- public, no auth required
+		r.Post("/chat", chatH.Chat)
 
 		// Stripe webhook (no auth — verified by signature)
 		r.Post("/payments/stripe/webhook", paymentH.StripeWebhook)

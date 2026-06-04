@@ -17,6 +17,7 @@ type Config struct {
 	PayPalClientSecret string
 	PayPalBaseURL      string
 	AllowedOrigins     string
+	AnthropicAPIKey    string
 }
 
 func Load() *Config {
@@ -35,6 +36,7 @@ func Load() *Config {
 		PayPalClientSecret:  getEnv("PAYPAL_CLIENT_SECRET", ""),
 		PayPalBaseURL:       getEnv("PAYPAL_BASE_URL", "https://api-m.sandbox.paypal.com"),
 		AllowedOrigins:      getEnv("ALLOWED_ORIGINS", "http://localhost:5173"),
+		AnthropicAPIKey:     getEnv("ANTHROPIC_API_KEY", ""),
 	}
 }
 

@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { Suspense, lazy } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ChatWidget } from "@/components/ChatWidget";
 import { AdminLayout } from "@/components/layout/AdminLayout";
 import { ProtectedRoute, AdminRoute } from "@/components/auth/ProtectedRoute";
 
@@ -36,6 +37,7 @@ function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      <ChatWidget />
       <main className="flex-1">
         <Suspense fallback={<div className="flex justify-center py-20 text-muted-foreground">Loading…</div>}>
           <Routes>

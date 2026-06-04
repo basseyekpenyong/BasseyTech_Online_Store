@@ -9,6 +9,11 @@ export function Footer() {
           <img src="/logo.png" alt="Chiba-Tech" className="h-10 w-auto mb-2" />
           <p className="text-muted-foreground mb-3">Your one-stop tech store for gadgets, repairs, and digital services worldwide.</p>
 
+          <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-600 mb-3">
+            <span className="h-2 w-2 rounded-full bg-green-500 inline-block" />
+            Available 24/7 — AI &amp; Phone Support
+          </p>
+
           <p className="text-xs font-semibold uppercase tracking-wider text-foreground mb-1">Head Office</p>
           <ul className="space-y-2 text-muted-foreground mb-3">
             <li className="flex items-start gap-2">
