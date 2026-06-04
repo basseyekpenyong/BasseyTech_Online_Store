@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Globe } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,11 +8,24 @@ export function Footer() {
         <div>
           <img src="/logo.png" alt="Chiba-Tech" className="h-10 w-auto mb-2" />
           <p className="text-muted-foreground mb-3">Your one-stop tech store for gadgets, repairs, and digital services worldwide.</p>
-          <ul className="space-y-2 text-muted-foreground">
+
+          <p className="text-xs font-semibold uppercase tracking-wider text-foreground mb-1">Head Office</p>
+          <ul className="space-y-2 text-muted-foreground mb-3">
             <li className="flex items-start gap-2">
               <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
               <span>41 Uncle Joe Avenue, Kubwa, Abuja, Nigeria</span>
             </li>
+          </ul>
+
+          <p className="text-xs font-semibold uppercase tracking-wider text-foreground mb-1">Branch Office</p>
+          <ul className="space-y-2 text-muted-foreground mb-3">
+            <li className="flex items-start gap-2">
+              <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+              <span>20 Atimbo Close, Calabar, Cross River State, Nigeria</span>
+            </li>
+          </ul>
+
+          <ul className="space-y-2 text-muted-foreground">
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4 flex-shrink-0 text-primary" />
               <a href="tel:+2348063607290" className="hover:text-foreground">+234 806 360 7290</a>
@@ -24,6 +37,10 @@ export function Footer() {
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 flex-shrink-0 text-primary" />
               <a href="mailto:globalchibatech@gmail.com" className="hover:text-foreground">globalchibatech@gmail.com</a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Globe className="h-4 w-4 flex-shrink-0 text-primary" />
+              <a href="#" className="hover:text-foreground">www.chibatech.com</a>
             </li>
           </ul>
         </div>
