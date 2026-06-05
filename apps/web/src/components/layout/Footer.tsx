@@ -77,8 +77,9 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Chiba-Tech. All rights reserved.
+      <div className="border-t py-4 text-center text-xs text-muted-foreground space-y-1">
+        <p>© {new Date().getFullYear()} Chiba-Tech Global Investment Limited. All rights reserved.</p>
+        <p>RC 1732597 — Registered with the Corporate Affairs Commission of Nigeria</p>
       </div>
     </footer>
   );
