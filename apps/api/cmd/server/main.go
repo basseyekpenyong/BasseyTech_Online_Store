@@ -53,6 +53,7 @@ func main() {
 	adminH := handlers.NewAdminHandler(pool)
 	addressH := handlers.NewAddressHandler(pool)
 	chatH := handlers.NewChatHandler(cfg.AnthropicAPIKey)
+	uploadH := handlers.NewUploadHandler(pool, "./uploads", "http://localhost:8080")
 
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
@@ -65,6 +66,9 @@ func main() {
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
 		AllowCredentials: true,
 	}))
+
+	// Serve uploaded product images
+	r.Handle("/uploads/*", http.StripPrefix("/uploads", http.FileServer(http.Dir("./uploads"))))
 
 	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, `{"status":"ok"}`)
@@ -149,6 +153,12 @@ func main() {
 			r.Delete("/admin/services/{id}", adminH.DeleteService)
 
 			r.Get("/admin/users", adminH.ListUsers)
+
+						// Product image management
+						r.Get("/admin/products/{id}/images", uploadH.ListImages)
+						r.Post("/admin/products/{id}/images", uploadH.UploadImage)
+						r.Delete("/admin/products/{id}/images/{image_id}", uploadH.DeleteImage)
+						r.Put("/admin/products/{id}/images/{image_id}/primary", uploadH.SetPrimary)
 		})
 	})
 
